@@ -95,11 +95,11 @@ class SudokuSolver
     public function Solve()
     {
         $m = $n = 0;
-        $GLOBALS['flag'] = FALSE;
+        $flag = FALSE;
 
         fx: while( $m !== 9 ):
 
-            if( ((int)($val = &$this->_oSudoku[$m][$n]) === 0) or $GLOBALS['flag'])
+            if( ((int)($val = &$this->_oSudoku[$m][$n]) === 0) or $flag )
             {
                 for( $i = $val + $this->seedVal + 1; $i <= 9; $i++ )
                 {
@@ -108,7 +108,7 @@ class SudokuSolver
                     if( $this->checkValid( $m, $n, $i ) )
                     {
 
-                        $GLOBALS['flag'] = FALSE;
+                        $flag = FALSE;
                         $val = $i;
                         $this->_stack->push( $m, $n );
 
@@ -130,7 +130,7 @@ class SudokuSolver
                 else
                     list($m, $n) = $this->_stack->pop();
 
-                $GLOBALS['flag'] = TRUE;
+                $flag = TRUE;
 
             } else {
                 if( $n === 8):
@@ -143,11 +143,28 @@ class SudokuSolver
         endwhile;
     }
 
+    public function OutputArray()
+    {
+        return $this->_oSudoku;
+    }
+
+    public function OutputString()
+    {
+        array_walk($this->_oSudoku, function( &$ele ) { $ele = implode("", $ele ); });
+
+        return implode("", $this->_oSudoku);
+    }
+
     public function __toString()
     {
         return print_r($this->_oSudoku, true);
     }
+
 }
 
 $sudoku = new SudokuSolver("103000509002109400000704000300502006060000050700803004000401000009205800804000107");
 $sudoku->Solve();
+print $sudoku->OutputString();
+
+
+

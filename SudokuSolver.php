@@ -161,10 +161,3 @@ class SudokuSolver
     }
 
 }
-
-$sudoku = new SudokuSolver("103000509002109400000704000300502006060000050700803004000401000009205800804000107");
-$sudoku->Solve();
-print $sudoku->OutputString();
-
-
-

@@ -8,4 +8,10 @@ Future versions will include difficulty grading, performance improvements, nice 
 How to Use
 ==========
 
-Using this library is simple. The input can be either 
+Using this library is simple. A simple program will work as
+
+    include "SudokuSolver.php";
+    $sudoku = new SudokuSolver("103000509002109400000704000300502006060000050700803004000401000009205800804000107");
+    $sudoku->Solve();
+    
+    print $sudoku->OutputString();

@@ -4,8 +4,8 @@ require_once "Stack.php";
 
 class SudokuSolver
 {
-    protected $_iSudoku = Array();
-    protected $_oSudoku = Array();
+    protected $_iSudoku = array();
+    protected $_oSudoku = array();
     protected $_stack;
     protected $seedVal;
 
@@ -69,10 +69,13 @@ class SudokuSolver
         return ($this->_checkCol( $m, $n, $val ) and $this->_checkRow( $m, $n, $val ) and $this->_checkBlock( $m, $n, $val ));
     }
 
+    /**
+     * Function checks if the sudoku has a unique solution
+     */
     public function HasUnique()
     {
 
-        strt:while( !$this->_stack->isEmpty() )
+        while( !$this->_stack->isEmpty() )
         {
             $stack = new Stack();
             $oldSudoku = &$this->_oSudoku;
@@ -95,12 +98,11 @@ class SudokuSolver
     public function Solve()
     {
         $m = $n = 0;
-        $flag = FALSE;
 
-        fx: while( $m !== 9 ):
+        fx: while( $m !== 9 ): //Loop till 9 x 9 sudoku processed
 
-            if( ((int)($val = &$this->_oSudoku[$m][$n]) === 0) or $flag )
-            {
+            if( ((int)($val = &$this->_oSudoku[$m][$n]) === 0))
+            { 
                 for( $i = $val + $this->seedVal + 1; $i <= 9; $i++ )
                 {
                     $this->seedVal = 0;
@@ -108,9 +110,8 @@ class SudokuSolver
                     if( $this->checkValid( $m, $n, $i ) )
                     {
 
-                        $flag = FALSE;
                         $val = $i;
-                        $this->_stack->push( $m, $n );
+                        $this->_stack->push( $m, $n ); //Record the insertion
 
                         if( $n === 8):
                             $m += 1;
@@ -119,18 +120,16 @@ class SudokuSolver
                             $n += 1;
                         endif;
 
-                        goto fx;
+                        goto fx; ///if insertion was valid continue while
                     }
                 }
 
                 $this->_oSudoku[$m][$n] = 0;
 
-                if( $this->_stack->isEmpty() )
+                if( $this->_stack->isEmpty() ) //If backtracked till begining return NOT SOLVABLE 
                     return self::NOT_SOLVABLE;
                 else
-                    list($m, $n) = $this->_stack->pop();
-
-                $flag = TRUE;
+                    list($m, $n) = $this->_stack->pop(); //backtrack
 
             } else {
                 if( $n === 8):

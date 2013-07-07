@@ -1,13 +1,21 @@
 PHP Sudoku Solver
 =================
 
-A sudoku solver implemented in PHP. It uses a bruteforce back-tracking algorithim. This is a v1.0 of program.
+A sudoku solver implemented in PHP. It uses a bruteforce back-tracking algorithim.
+
+
+Changelog
+========
+
+**07/07/2012**
+
+* Replaced loop-by check with possibles check which give high performance. Time take to solve 1000 Sudokus: `4.9 seconds`. Thanks to [deathshawdow](https://forums.digitalpoint.com/members/deathshadow.81916/). 
 
 
 How to Use
 ==========
 
-The package consists of two main classes, a solver, `SudokuSolver`, and a genrator, `SudokuGenerator`. 
+The package consists of two main classes, a solver, `SudokuSolver`, and a generator, `SudokuGenerator`. 
 
 
 ##### Using Solver
